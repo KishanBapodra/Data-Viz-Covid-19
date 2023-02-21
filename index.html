@@ -7,6 +7,12 @@
     <title>D3-Coursework</title>
 </head>
 <body>
-    Hello There
+    <script src='https://d3js.org/d3.v7.min.js'></script>
+
+    <script>
+        const covidDataCSV = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv";
+        const data = d3.csv(covidDataCSV, (data) => data)
+        data.then(datum => console.log(datum[0]))
+    </script>
 </body>
 </html>
