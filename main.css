@@ -1,0 +1,13 @@
+body {
+    background-color: #111;
+}
+
+.map_svg {
+    margin: 3em;
+    background-color: darkslategray;
+    border-radius: 25%;
+}
+
+g {
+    margin: 0;
+}
