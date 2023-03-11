@@ -1,15 +1,15 @@
 // set the dimensions and margins of the graph
 const width = 700;
-const height = 700;
+const height = 675;
 
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
   .append("svg")
-  .attr("class", "bubble_svg")
+  .attr("class", "bubble-svg")
   .attr("width", width)
   .attr("height", height)
 
-// Read data
+    // Read data
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
     // Filter a bit the data on latest updated date 
@@ -22,8 +22,17 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Size scale for countries
     const size = d3.scaleLinear()
         .domain([0, 107000000])
-        .range([16, 70]); // circle will be between 7 and 55 px wide
+        .range([13, 70]); // circle will be between 16 and 70 px wide
 
+    svg.append('text')
+    .attr("x", width/2)
+    .attr("y", height - 10)
+    .attr("text-anchor", "middle")
+    .style("font-size", "1.3em")
+    .style("fill", "white") 
+    .text("Total cases of differenct countries as of 2023-03-07");
+    
+    
     // create a tooltip
     const Tooltip = d3.select("#bubble-viz")
         .append("div")
@@ -39,14 +48,13 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const mouseover = (event, d) => {
         Tooltip.style("opacity", 1);
     };
-
     const mousemove = (event, d) => {
         Tooltip
             .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
             .style("position", "absolute")
             .style("left", (event.x + 15) + "px")
-            .style("top", (event.y - 15) + "px");
-    };
+            .style("top", (event.y + scrollY) + "px");
+     };
 
     const mouseleave = (event, d) => {
         Tooltip.style("opacity", 0);
@@ -74,7 +82,6 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .on("mouseleave", mouseleave)
         .on("click", mouseclick);
 
-
     // Features of the forces applied to the nodes:
     const simulation = d3.forceSimulation()
         .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
@@ -88,22 +95,9 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .on("tick", function(d){
             node
                 .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
+                .attr("cy", d => d.y);
+            console.log(d);
         });
 
-    // What happens when a circle is dragged?
-    function dragstarted(event, d) {
-        if (!event.active) simulation.alphaTarget(.03).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-        }
-    function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
-    }
-    function dragended(event, d) {
-        if (!event.active) simulation.alphaTarget(.03);
-        d.fx = null;
-        d.fy = null;
-    }
+
 });

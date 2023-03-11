@@ -2,9 +2,9 @@ body {
     background-color: #111;
 }
 
-.bubble_svg {
+#bubble-viz {
+}
+
+.bubble-svg {
     margin: 3em;
-    border: 3px dashed #444;
-    border-radius: 25%;
-    padding-right: 2.5em;
 }
