@@ -91,9 +91,10 @@ function singleLineGraph(data) {
   const y = d3.scaleLinear()
     .domain([0, d3.max(data, d => +d.total_cases)])
     .range([height, 0]);
-  svg.append("g")
-    .join()
-    .call(d3.axisLeft(y));
+  svg.select("g")
+  .enter()
+  .call(d3.axisLeft(y))
+  .update();
 
   // color palette
   const color = d3.scaleOrdinal()

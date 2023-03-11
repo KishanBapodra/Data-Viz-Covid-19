@@ -3,30 +3,29 @@ const width = 700;
 const height = 700;
 
 // append the svg object to the body of the page
-const svg = d3.select("#map_data")
+const svg = d3.select("#bubble-viz")
   .append("svg")
-  .attr("class", "map_svg")
+  .attr("class", "bubble_svg")
   .attr("width", width)
   .attr("height", height)
 
 // Read data
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
-    // Filter a bit the data -> more than 1 million inhabitants
-    data = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.total_cases > 100000);
-
+    // Filter a bit the data on latest updated date 
+    bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.total_cases > 100000);
+    console.log(bubbleData);
     // Color palette for continents?
     const color = d3.scaleOrdinal()
         .domain(["Asia", "Europe", "Africa", "Oceania", "North America", "South America"])
         .range(d3.schemeSet1);
-    console.log(color);
     // Size scale for countries
     const size = d3.scaleLinear()
         .domain([0, 107000000])
         .range([16, 70]); // circle will be between 7 and 55 px wide
 
     // create a tooltip
-    const Tooltip = d3.select("#map_data")
+    const Tooltip = d3.select("#bubble-viz")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -54,14 +53,13 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     };
 
     const mouseclick = (event, d) => {
-        console.log(event);
-        console.log(d);
+        singleLineGraph(data.filter(datum => d.location === datum.location))
     }
 
     // Initialize the circle: all located at the center of the svg area
     const node = svg.append("g")
         .selectAll("circle")
-        .data(data)
+        .data(bubbleData)
         .join("circle")
         .attr("class", "node")
         .attr("r", d => size(d.total_cases))
@@ -86,7 +84,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Apply these forces to the nodes and update their positions.
     // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
     simulation
-        .nodes(data)
+        .nodes(bubbleData)
         .on("tick", function(d){
             node
                 .attr("cx", d => d.x)
