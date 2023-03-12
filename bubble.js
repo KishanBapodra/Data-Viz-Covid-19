@@ -7,15 +7,15 @@ const svg = d3.select("#bubble-viz")
   .append("svg")
   .attr("class", "bubble-svg")
   .attr("width", width)
-  .attr("height", height)
+  .attr("height", height);
 
     // Read data
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
     // Filter a bit the data on latest updated date 
-    bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '');
+    bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
     
-    const continentCenters = {"Asia":50,"Europe":200,"North America":300,"Oceania":400,"Africa":475,"South America":530}
+    const continentCenters = {"Asia":50,"Europe":200,"North America":300,"Oceania":425,"Africa":505,"South America":540}
     
     // Color palette for continents?
     const color = d3.scaleOrdinal()
@@ -63,7 +63,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     };
 
     const mouseclick = (event, d) => {
-        singleLineGraph(data.filter(datum => d.location === datum.location))
+        console.log(d);
+        // singleLineGraph(data.filter(datum => d.location === datum.location))
     }
 
     // Initialize the circle: all located at the center of the svg area
@@ -87,7 +88,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
                 d3.select(this).classed("circle-click", false);
             else 
                 d3.select(this)
-                .classed("circle-click", true) // add the class 'clicked' to the selected circle
+                .classed("circle-click", true); // add the class 'clicked' to the selected circle
+            mouseclick(event,d);
         });
 
     // Features of the forces applied to the nodes:

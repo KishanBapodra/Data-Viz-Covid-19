@@ -3,6 +3,9 @@ body {
 }
 
 #bubble-viz {
+    margin: 0;
+    width: 800px;
+    height: 700px;
 }
 
 .bubble-svg {
@@ -11,4 +14,9 @@ body {
 
 .circle-click {
     stroke: white;
+}
+
+#map-viz {
+    width: 800px;
+    height: 700px;
 }
