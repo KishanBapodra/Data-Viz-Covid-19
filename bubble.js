@@ -14,7 +14,9 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Filter a bit the data on latest updated date 
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '');
-    const continentCenters = {"Asia":50,"Europe":200,"Africa":250,"Oceania":300,"North America":400,"South America":510}
+    
+    const continentCenters = {"Asia":50,"Europe":200,"North America":300,"Oceania":400,"Africa":475,"South America":530}
+    
     // Color palette for continents?
     const color = d3.scaleOrdinal()
         .domain(["Asia", "Europe", "Africa", "Oceania", "North America", "South America"])
