@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
-const width = 700;
-const height = 675;
+const width = 1000;
+const height = 700;
 
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
@@ -13,8 +13,8 @@ const svg = d3.select("#bubble-viz")
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
     // Filter a bit the data on latest updated date 
-    bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.total_cases > 100000);
-    console.log(bubbleData);
+    bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '');
+    const continentCenters = {"Asia":50,"Europe":200,"Africa":250,"Oceania":300,"North America":400,"South America":510}
     // Color palette for continents?
     const color = d3.scaleOrdinal()
         .domain(["Asia", "Europe", "Africa", "Oceania", "North America", "South America"])
@@ -23,13 +23,13 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const size = d3.scaleLinear()
         .domain([0, 107000000])
         .range([13, 70]); // circle will be between 16 and 70 px wide
-
+    console.log(continentCenters.Asia);
     svg.append('text')
     .attr("x", width/2)
-    .attr("y", height - 10)
+    .attr("y", height - 40)
     .attr("text-anchor", "middle")
     .style("font-size", "1.3em")
-    .style("fill", "white") 
+    .style("fill", "#CCC") 
     .text("Total cases of differenct countries as of 2023-03-07");
     
     
@@ -76,14 +76,22 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("fill", d => color(d.continent))
         .style("fill-opacity", 0.8)
         .attr("stroke", "black")
-        .style("stroke-width", 1)
+        .style("stroke-width", 3)
         .on("mouseover", mouseover) // What to do when hovered
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
-        .on("click", mouseclick);
+        .on("click", function(event, d) {
+            if(d3.select(this)._groups[0][0].classList.contains('circle-click'))
+                d3.select(this).classed("circle-click", false);
+            else 
+                d3.select(this)
+                .classed("circle-click", true) // add the class 'clicked' to the selected circle
+        });
 
     // Features of the forces applied to the nodes:
     const simulation = d3.forceSimulation()
+    .force("x", d3.forceX().strength(0.1).x( function(d){ return continentCenters[d.continent] }))
+    .force("y", d3.forceY().strength(0.1).y( height/2 ))
         .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
         .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
         .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.total_cases)+3) }).iterations(1)) // Force that avoids circle overlapping
@@ -96,7 +104,6 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
             node
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
-            console.log(d);
         });
 
 
