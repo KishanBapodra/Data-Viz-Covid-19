@@ -2,6 +2,10 @@ body {
     background-color: #111;
 }
 
+.section-1 {
+    display: flex;
+}
+
 #bubble-viz {
     margin: 0;
     width: 800px;
@@ -9,7 +13,6 @@ body {
 }
 
 .bubble-svg {
-    margin: 2em;
 }
 
 .circle-click {
