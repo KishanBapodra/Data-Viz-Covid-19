@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
-const width = 640;
-const height = 640;
+const width = 590;
+const height = 550;
 
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
@@ -14,7 +14,6 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Filter a bit the data on latest updated date 
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
-    
     const continentCenters = {"Asia":10,"Europe":70,"North America":150,"Oceania":200,"Africa":280,"South America":320}
     
     // Color palette for continents?
@@ -24,19 +23,18 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Size scale for countries
     const size = d3.scaleLinear()
         .domain([0, 107000000])
-        .range([10, 50]); // circle will be between 16 and 70 px wide
-    console.log(continentCenters.Asia);
+        .range([9, 45]); // circle will be between 16 and 70 px wide
     svg.append('text')
     .attr("x", width/2)
     .attr("y", height-30)
     .attr("text-anchor", "middle")
     .style("font-size", "1.3em")
     .style("fill", "#CCC") 
-    .text("Total cases of different countries as of 2023-03-07");
+    .text("Total Covid-19 cases of the countries as of 2023-03-07");
     
     
     // create a tooltip
-    const Tooltip = d3.select("#bubble-viz")
+    const bubbleTooltip = d3.select("#bubble-viz")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -48,10 +46,10 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Three function that change the tooltip when user hover / move / leave a cell
     const mouseover = (event, d) => {
-        Tooltip.style("opacity", 1);
+        bubbleTooltip.style("opacity", 1);
     };
     const mousemove = (event, d) => {
-        Tooltip
+        bubbleTooltip
             .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
             .style("position", "absolute")
             .style("left", (event.x + 15) + "px")
@@ -59,20 +57,20 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
      };
 
     const mouseleave = (event, d) => {
-        Tooltip.style("opacity", 0);
+        bubbleTooltip.style("opacity", 0);
     };
 
     const mouseclick = (event, d) => {
-        console.log(d);
+        // console.log(d);
         // singleLineGraph(data.filter(datum => d.location === datum.location))
     }
-
+    // console.log(d3.extent(bubbleData.total_cases_per_million));
     // Initialize the circle: all located at the center of the svg area
     const node = svg.append("g")
         .selectAll("circle")
         .data(bubbleData)
         .join("circle")
-        .attr("class", "node")
+        .attr("class", d => `node Country ${d.iso_code}`)
         .attr("r", d => size(d.total_cases))
         .attr("cx", width/2)
         .attr("cy", height/2)
