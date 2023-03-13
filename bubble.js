@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-const width = 550;
+const width = 590;
 const height = 550;
 
 // append the svg object to the body of the page
@@ -14,8 +14,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Filter a bit the data on latest updated date 
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
-    const continentCenters = {"Asia":10,"Europe":50,"North America":120,"Oceania":170,"Africa":240,"South America":290}
-    
+
+    const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
     // Color palette for continents?
     const color = d3.scaleOrdinal()
         .domain(["Asia", "Europe", "Africa", "Oceania", "North America", "South America"])
@@ -24,13 +24,14 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const size = d3.scaleLinear()
         .domain([0, 107000000])
         .range([9, 45]); // circle will be between 16 and 70 px wide
+    
     svg.append('text')
     .attr("x", width/2)
     .attr("y", height-30)
     .attr("text-anchor", "middle")
-    .style("font-size", "1.3em")
+    .style("font-size", "1em")
     .style("fill", "#CCC") 
-    .text("Total Covid-19 cases of the countries as of 2023-03-07");
+    .text("Total Covid-19 cases of the countries (sorted by continent) as of 2023-03-07");
     
     
     // create a tooltip

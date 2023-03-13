@@ -1,5 +1,5 @@
 const mapWidth = 800;
-const mapHeight = 650;
+const mapHeight = 750;
 
 // The svg
 const mapSvg = d3.select("#map-viz")
