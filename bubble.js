@@ -47,6 +47,15 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Three function that change the tooltip when user hover / move / leave a cell
     const mouseover = (event, d) => {
         bubbleTooltip.style("opacity", 1);
+        d3.selectAll(".Country")
+        .transition()
+        .duration(200)
+        .style("opacity", .5);
+        d3.selectAll(`.${d.iso_code}`)        
+        .transition()
+        .duration(200)
+        .style("opacity", 1)
+        .style("stroke", "black")
     };
     const mousemove = (event, d) => {
         bubbleTooltip
@@ -58,6 +67,14 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     const mouseleave = (event, d) => {
         bubbleTooltip.style("opacity", 0);
+        d3.selectAll(".Country")
+        .transition()
+        .duration(200)
+        .style("opacity", 1);
+      d3.select(`.${d.iso_code}`)
+        .transition()
+        .duration(200)
+        .style("stroke", "transparent");
     };
 
     const mouseclick = (event, d) => {

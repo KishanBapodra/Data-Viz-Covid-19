@@ -33,7 +33,6 @@ Promise.all([
     };
   })])
   .then(function(loadData) {
-    console.log(d3.extent(arr));
     let topo = loadData[0];
 
     let mouseOver = function(d) {
