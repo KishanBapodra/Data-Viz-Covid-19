@@ -1,4 +1,4 @@
-const mapWidth = 1000;
+const mapWidth = 800;
 const mapHeight = 650;
 
 // The svg
@@ -67,7 +67,7 @@ Promise.all([
         d3.selectAll(".Country")
           .transition()
           .duration(200)
-          .style("opacity", .6);
+          .style("opacity", 1);
         d3.select(`.${d.target.classList[1]}`)
           .transition()
           .duration(200)

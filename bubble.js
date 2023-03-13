@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-const width = 590;
+const width = 550;
 const height = 550;
 
 // append the svg object to the body of the page
@@ -14,7 +14,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Filter a bit the data on latest updated date 
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
-    const continentCenters = {"Asia":10,"Europe":70,"North America":150,"Oceania":200,"Africa":280,"South America":320}
+    const continentCenters = {"Asia":10,"Europe":50,"North America":120,"Oceania":170,"Africa":240,"South America":290}
     
     // Color palette for continents?
     const color = d3.scaleOrdinal()
