@@ -56,7 +56,7 @@ Promise.all([
     const mousemove = (event, d) => {
       mapTooltip
           .html('<u>' + d.properties.name + '</u>' + "<br>" + parseInt(d.total) + " cases per million")
-          .style("position", "absolute")
+          .style("position", "fixed")
           .style("left", (event.x + 15) + "px")
           .style("top", (event.y + scrollY) + "px");
    };

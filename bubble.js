@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-const width = 590;
+const width = 620;
 const height = 550;
 
 // append the svg object to the body of the page
@@ -30,7 +30,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     .attr("y", height-30)
     .attr("text-anchor", "middle")
     .style("font-size", "1em")
-    .style("fill", "#CCC") 
+    .style("fill", "white") 
     .text("Total Covid-19 cases of the countries (sorted by continent) as of 2023-03-07");
     
     
@@ -61,7 +61,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const mousemove = (event, d) => {
         bubbleTooltip
             .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
-            .style("position", "absolute")
+            .style("position", "fixed")
             .style("left", (event.x + 15) + "px")
             .style("top", (event.y + scrollY) + "px");
      };
