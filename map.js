@@ -35,14 +35,14 @@ Promise.all([
   .then(function(loadData) {
     let topo = loadData[0];
 
-    let mouseOver = function(d) {
-        console.log(d.target.classList[1]);
+    let mouseOver = function(event, d) {
+        
         mapTooltip.style("opacity", 1);
         d3.selectAll(".Country")
         .transition()
         .duration(200)
         .style("opacity", .5);
-        d3.selectAll(`.${d.target.classList[1]}`)        
+        d3.selectAll(`.${event.target.classList[1]}`)        
         .transition()
         .duration(200)
         .style("opacity", 1);
@@ -56,16 +56,12 @@ Promise.all([
           .style("top", (event.y + scrollY) + "px");
    };
 
-    let mouseLeave = function(d) {
+    let mouseLeave = function(event, d) {
         mapTooltip.style("opacity", 0);
         d3.selectAll(".Country")
           .transition()
           .duration(200)
           .style("opacity", 1);
-        // d3.select(`.${d.target.classList[1]}`)
-        //   .transition()
-        //   .duration(200)
-        //   .style("stroke", "transparent");
     }
     
 

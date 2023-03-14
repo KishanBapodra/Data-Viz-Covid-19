@@ -1,5 +1,6 @@
 body {
     height: 100vh;
+    background-color: lightblue;
 }
 
 .section-1 {
@@ -12,7 +13,7 @@ body {
 
 .sub-section-right {
     border-left: 2px solid black;
-    padding: 4em;
+    height: 98vh;
 /*    display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,11 +23,12 @@ body {
 
 #bubble-viz {
     margin: 0;
-    padding-bottom: 2em;
+    border-bottom: 2px solid black;
 }
 
 .bubble-svg {
     width: 100%;
+    padding: 0 2em;
 }
 
 .circle-click {
@@ -41,10 +43,14 @@ body {
 }
 
 .map-title {
-    color: white;
+    color: black;
     width: 100%;
     position: absolute;
     margin: 0;
     bottom: 0;
     text-align: center;
+}
+
+.lineSVG {
+    padding: 1em 2em;
 }
