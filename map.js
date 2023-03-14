@@ -18,7 +18,7 @@ const projection = d3.geoMercator()
 // Data and color scale
 const data = new Map();
 const colorScale = d3.scaleThreshold()
-  .domain([10, 1000, 10000, 50000, 100000, 200000, 300000, 500000])
+  .domain([0, 1000, 10000, 50000, 100000, 200000, 300000, 500000])
   .range(d3.schemeReds[9]);
 // .domain([10000, 100000, 500000, 1000000, 5000000, 10000000, 20000000, 50000000])
 
@@ -36,24 +36,32 @@ Promise.all([
     let topo = loadData[0];
 
     let mouseOver = function(d) {
-        // console.log(d.target.classList[1])
+        console.log(d.target.classList[1]);
         mapTooltip.style("opacity", 1);
+        // d3.selectAll(".Country")
+        //   .transition()
+        //   .duration(200)
+        //   .style("opacity", .5);
+        // d3.select(this)
+        //   .transition()
+        //   .duration(200)
+        //   .style("opacity", 1)
+        //   .style("stroke", "black");
+        // d3.select(`.${d.target.classList[1]}`)
+        //   .transition()
+        //   .duration(200)
+        //   .style("opacity", 1)
         d3.selectAll(".Country")
-          .transition()
-          .duration(200)
-          .style("opacity", .5);
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
-          .style("stroke", "black")
-        d3.select(`.${d.target.classList[1]}`)
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
+        .transition()
+        .duration(200)
+        .style("opacity", .5);
+        d3.selectAll(`.${d.target.classList[1]}`)        
+        .transition()
+        .duration(200)
+        .style("opacity", 1);
     }
 
-    const mousemove = (event, d) => {
+    const mouseMove = (event, d) => {
       mapTooltip
           .html('<u>' + d.properties.name + '</u>' + "<br>" + parseInt(d.total) + " cases per million")
           .style("position", "fixed")
@@ -67,18 +75,12 @@ Promise.all([
           .transition()
           .duration(200)
           .style("opacity", 1);
-        d3.select(`.${d.target.classList[1]}`)
-          .transition()
-          .duration(200)
-          .style("stroke", "black");
+        // d3.select(`.${d.target.classList[1]}`)
+        //   .transition()
+        //   .duration(200)
+        //   .style("stroke", "transparent");
     }
     
-    let mouseClick = function(d) {
-        d3.select(`.${d.target.classList[1]}`)
-        .transition()
-        .duration(200)
-        .style("stroke", "white");
-    }
 
       // create a tooltip
       const mapTooltip = d3.select("#map-viz")
@@ -112,9 +114,8 @@ Promise.all([
       .style("stroke", "black")
       .attr("class", function(d){ return `Country ${d.id}` } )
       .style("opacity", .8)
-      .on("click", mouseClick )
       .on("mouseover", mouseOver )
-      .on("mousemove", mousemove)
+      .on("mousemove", mouseMove)
       .on("mouseleave", mouseLeave );
 
 });

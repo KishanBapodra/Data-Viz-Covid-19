@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 const lineMargin = { top: 10, right: 30, bottom: 30, left: 100 },
-  lineWidth = 500 - lineMargin.left - lineMargin.right,
-  lineHeight = 400 - lineMargin.top - lineMargin.bottom;
+  lineWidth = 550 - lineMargin.left - lineMargin.right,
+  lineHeight = 360 - lineMargin.top - lineMargin.bottom;
 
 // Read the data
 // d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
@@ -45,7 +45,7 @@ const lineMargin = { top: 10, right: 30, bottom: 30, left: 100 },
       .data(d3.group(data, d => d.location))
       .join("path")
       .attr("fill", "none")
-      .attr("stroke", "white")
+      .attr("stroke", "steelblue")
       .attr("stroke-width", 1.3)
       .attr("d", d => d3.line()
         .x(d => x(d3.timeParse("%Y-%m-%d")(d.date)))
