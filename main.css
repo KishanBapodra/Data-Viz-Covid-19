@@ -1,6 +1,5 @@
 body {
     height: 100vh;
-    background-color: #444;
 }
 
 .section-1 {
@@ -12,6 +11,7 @@ body {
 }
 
 .sub-section-right {
+    border-left: 2px solid black;
     padding: 4em;
 /*    display: flex;
     flex-direction: column;

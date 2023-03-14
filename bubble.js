@@ -12,7 +12,7 @@ const svg = d3.select("#bubble-viz")
     // Read data
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
-    // Filter a bit the data on latest updated date 
+    // Filter the data on latest updated date.
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
 
     const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
@@ -46,7 +46,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("padding", "0.3em");
 
     // Three function that change the tooltip when user hover / move / leave a cell
-    const mouseover = (event, d) => {
+    const mouseOver = (event, d) => {
         bubbleTooltip.style("opacity", 1);
         d3.selectAll(".Country")
         .transition()
@@ -58,7 +58,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("opacity", 1)
         .style("stroke", "black")
     };
-    const mousemove = (event, d) => {
+    const mouseMove = (event, d) => {
         bubbleTooltip
             .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
             .style("position", "fixed")
@@ -66,20 +66,15 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
             .style("top", (event.y + scrollY) + "px");
      };
 
-    const mouseleave = (event, d) => {
+    const mouseLeave = (event, d) => {
         bubbleTooltip.style("opacity", 0);
         d3.selectAll(".Country")
         .transition()
         .duration(200)
         .style("opacity", 1);
-      d3.select(`.${d.iso_code}`)
-        .transition()
-        .duration(200)
-        .style("stroke", "transparent");
     };
 
     const mouseclick = (event, d) => {
-        // console.log(d);
         lineGraph(data.filter(datum => d.location === datum.location))
     }
     // console.log(d3.extent(bubbleData.total_cases_per_million));
@@ -96,9 +91,9 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("fill-opacity", 0.8)
         .attr("stroke", "black")
         .style("stroke-width", 3)
-        .on("mouseover", mouseover) // What to do when hovered
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
+        .on("mouseover", mouseOver) // What to do when hovered
+        .on("mousemove", mouseMove)
+        .on("mouseleave", mouseLeave)
         .on("click", function(event, d) {
             if(d3.select(this)._groups[0][0].classList.contains('circle-click'))
                 d3.select(this).classed("circle-click", false);

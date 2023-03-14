@@ -38,19 +38,6 @@ Promise.all([
     let mouseOver = function(d) {
         console.log(d.target.classList[1]);
         mapTooltip.style("opacity", 1);
-        // d3.selectAll(".Country")
-        //   .transition()
-        //   .duration(200)
-        //   .style("opacity", .5);
-        // d3.select(this)
-        //   .transition()
-        //   .duration(200)
-        //   .style("opacity", 1)
-        //   .style("stroke", "black");
-        // d3.select(`.${d.target.classList[1]}`)
-        //   .transition()
-        //   .duration(200)
-        //   .style("opacity", 1)
         d3.selectAll(".Country")
         .transition()
         .duration(200)
