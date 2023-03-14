@@ -12,7 +12,6 @@ body {
 }
 
 .sub-section-right {
-    border-left: 2px solid black;
     height: 98vh;
 /*    display: flex;
     flex-direction: column;
@@ -23,7 +22,7 @@ body {
 
 #bubble-viz {
     margin: 0;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid black;
 }
 
 .bubble-svg {
@@ -36,8 +35,10 @@ body {
 }
 
 #map-viz {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
     height: 100%;
-    margin: 1em;
+    /* padding: 1em; */
     position: relative;
 }
 
@@ -48,6 +49,12 @@ body {
     margin: 0;
     bottom: 1em;
     text-align: center;
+}
+
+
+#line-graph {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
 }
 
 .lineSVG {
