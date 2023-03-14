@@ -1,5 +1,5 @@
-const mapWidth = 55;
-const mapHeight = 92;
+const mapWidth = 52;
+const mapHeight = 90;
 
   // The svg
 const mapSvg = d3.select("#map-viz")
@@ -11,7 +11,7 @@ const mapSvg = d3.select("#map-viz")
 // Map and projection
 const path = d3.geoPath();
 const projection = d3.geoMercator()
-  .scale(110)
+  .scale(100)
   .center([0,20])
   .translate([ window.innerWidth * mapWidth / 200 , window.innerHeight * mapHeight / 200]);
 
@@ -63,17 +63,8 @@ Promise.all([
           .style("opacity", 1);
     }
     
-
-      mapSvg.append('text')
-        .attr("x", `${mapWidth/2}vw`)
-        .attr("y", `${mapHeight-0.5}vh`)
-        .attr("text-anchor", "middle")
-        .style("font-size", "1em")
-        .style("fill", "black") 
-        .text("Covid-19 cases per million. Severity of Covid-19 cases by country. The darker, the worse that specific country handled covid.");
-    
       // create a tooltip
-      const mapTooltip = d3.select("#map-viz")
+    const mapTooltip = d3.select("#map-viz")
       .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip")
