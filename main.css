@@ -36,9 +36,8 @@ body {
 }
 
 #map-viz {
-    width: 800px;
-    height: 800px;
-    margin-bottom: 10vh;
+    height: 100%;
+    margin: 1em;
     position: relative;
 }
 
@@ -47,7 +46,7 @@ body {
     width: 100%;
     position: absolute;
     margin: 0;
-    bottom: 0;
+    bottom: 1em;
     text-align: center;
 }
 

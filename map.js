@@ -1,19 +1,19 @@
-const mapWidth = 800;
-const mapHeight = 750;
+const mapWidth = 55;
+const mapHeight = 92;
 
 // The svg
 const mapSvg = d3.select("#map-viz")
             .append("svg")
             .attr("class", "map-svg")
-            .attr("width", mapWidth)
-            .attr("height",mapHeight);
+            .attr("width", `${mapWidth}vw`)
+            .attr("height",`${mapHeight}vh`);
 
 // Map and projection
 const path = d3.geoPath();
 const projection = d3.geoMercator()
-  .scale(120)
+  .scale(100)
   .center([0,20])
-  .translate([mapWidth / 2, mapHeight / 2]);
+  .translate([ window.innerWidth * mapWidth / 200 , window.innerHeight * mapHeight / 200]);
 
 // Data and color scale
 const data = new Map();
