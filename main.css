@@ -1,24 +1,33 @@
 body {
     height: 100vh;
-    background-color: black;
+    background-color: #444;
 }
 
 .section-1 {
-    padding-right: 4em;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     position: relative;
+}
+
+.sub-section-right {
+    padding: 4em;
+/*    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; */
 }
 
 #bubble-viz {
     margin: 0;
     width: 800px;
-    height: 700px;
+    height: 600px;
 }
 
 .bubble-svg {
+    width: 100%;
 }
 
 .circle-click {
@@ -28,7 +37,7 @@ body {
 #map-viz {
     width: 800px;
     height: 800px;
-    margin-bottom: 15vh;
+    margin-bottom: 10vh;
     position: relative;
 }
 

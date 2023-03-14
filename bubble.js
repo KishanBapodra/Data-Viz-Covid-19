@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 const width = 620;
-const height = 550;
+const height = 530;
 
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
@@ -80,7 +80,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     const mouseclick = (event, d) => {
         // console.log(d);
-        // singleLineGraph(data.filter(datum => d.location === datum.location))
+        lineGraph(data.filter(datum => d.location === datum.location))
     }
     // console.log(d3.extent(bubbleData.total_cases_per_million));
     // Initialize the circle: all located at the center of the svg area

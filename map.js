@@ -18,7 +18,7 @@ const projection = d3.geoMercator()
 // Data and color scale
 const data = new Map();
 const colorScale = d3.scaleThreshold()
-  .domain([10, 1000, 5000, 10000, 50000, 100000, 200000, 310000])
+  .domain([10, 1000, 10000, 50000, 100000, 200000, 300000, 500000])
   .range(d3.schemeReds[9]);
 // .domain([10000, 100000, 500000, 1000000, 5000000, 10000000, 20000000, 50000000])
 
@@ -70,7 +70,7 @@ Promise.all([
         d3.select(`.${d.target.classList[1]}`)
           .transition()
           .duration(200)
-          .style("stroke", "transparent");
+          .style("stroke", "black");
     }
     
     let mouseClick = function(d) {
