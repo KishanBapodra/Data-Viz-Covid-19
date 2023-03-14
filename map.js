@@ -1,7 +1,7 @@
 const mapWidth = 55;
 const mapHeight = 92;
 
-// The svg
+  // The svg
 const mapSvg = d3.select("#map-viz")
             .append("svg")
             .attr("class", "map-svg")
@@ -11,11 +11,11 @@ const mapSvg = d3.select("#map-viz")
 // Map and projection
 const path = d3.geoPath();
 const projection = d3.geoMercator()
-  .scale(100)
+  .scale(110)
   .center([0,20])
   .translate([ window.innerWidth * mapWidth / 200 , window.innerHeight * mapHeight / 200]);
 
-// Data and color scale
+  // Data and color scale
 const data = new Map();
 const colorScale = d3.scaleThreshold()
   .domain([0, 1000, 10000, 50000, 100000, 200000, 300000, 500000])
@@ -36,7 +36,6 @@ Promise.all([
     let topo = loadData[0];
 
     let mouseOver = function(event, d) {
-        
         mapTooltip.style("opacity", 1);
         d3.selectAll(".Country")
         .transition()
@@ -65,6 +64,14 @@ Promise.all([
     }
     
 
+      mapSvg.append('text')
+        .attr("x", `${mapWidth/2}vw`)
+        .attr("y", `${mapHeight-0.5}vh`)
+        .attr("text-anchor", "middle")
+        .style("font-size", "1em")
+        .style("fill", "black") 
+        .text("Covid-19 cases per million. Severity of Covid-19 cases by country. The darker, the worse that specific country handled covid.");
+    
       // create a tooltip
       const mapTooltip = d3.select("#map-viz")
       .append("div")
