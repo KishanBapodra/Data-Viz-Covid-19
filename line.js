@@ -7,7 +7,7 @@ function lineGraph(data) {
 
   d3.select(".lineSVG").remove();
   // append the svg object to the body of the page
-  const lineSVG = d3.select("#line-graph")
+  const lineSVG = d3.select("#line-viz")
     .append("svg")
     .attr("width", lineWidth + lineMargin.left + lineMargin.right)
     .attr("height", lineHeight + lineMargin.top + lineMargin.bottom)

@@ -13,6 +13,7 @@ body {
 
 .sub-section-right {
     height: 98vh;
+    border-left: 1px solid black;
 /*    display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,6 +23,7 @@ body {
 
 #bubble-viz {
     margin: 0;
+    width: 100%;
     border-bottom: 1px solid black;
 }
 
@@ -34,9 +36,12 @@ body {
     stroke: white;
 }
 
+.map-together {
+    display: flex;
+    flex-direction: column;
+}
+
 #map-viz {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
     height: 100%;
     /* padding: 1em; */
     position: relative;
@@ -44,15 +49,13 @@ body {
 
 .map-title {
     color: black;
-    width: 100%;
-    position: absolute;
     margin: 0;
     bottom: 1em;
     text-align: center;
 }
 
 
-#line-graph {
+#line-viz {
     border-bottom: 1px solid black;
     border-left: 1px solid black;
 }
