@@ -1,14 +1,14 @@
 // set the dimensions and margins of the graph
-const lineMargin = { top: 10, right: 30, bottom: 30, left: 100 },
-  lineWidth = 550 - lineMargin.left - lineMargin.right,
-  lineHeight = 360 - lineMargin.top - lineMargin.bottom;
+const lineMargin = { top: 10, right: 30, bottom: 60, left: 100 };
+const lineWidth = 550 - lineMargin.left - lineMargin.right;
+const lineHeight = 400 - lineMargin.top - lineMargin.bottom;
 
 function lineGraph(data) {
   d3.select(".lineSVG").remove();
 
   // append the svg object to the body of the page
 
-  const lineSVG = d3
+  const lineSvg = d3
     .select("#line-viz")
     .append("svg")
     .attr("width", lineWidth + lineMargin.left + lineMargin.right)
@@ -24,19 +24,20 @@ function lineGraph(data) {
 
   const x = d3.scaleTime().domain(domain).range([0, lineWidth]);
 
+  // add extra 10% at the top
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => +d.total_cases)])
+    .domain([0, d3.max(data, (d) => +d.total_cases+d.total_cases*0.1)])
     .range([lineHeight, 0]);
 
-  lineSVG
+  lineSvg
     .append("g")
     .attr("transform", `translate(0, ${lineHeight})`)
     .call(d3.axisBottom(x).ticks(5));
 
-  lineSVG.append("g").call(d3.axisLeft(y));
+  lineSvg.append("g").call(d3.axisLeft(y));
 
-  const line = lineSVG
+  const line = lineSvg
     .selectAll(".line")
     .data(d3.group(data, d => d.location))
     .join("path")
@@ -57,6 +58,17 @@ function lineGraph(data) {
         return d3.interpolateString(`0,${len}`, `${len},${len}`)(t);
       };
   });
+
+  lineSvg.append('text')
+    .attr("x", lineWidth/2)
+    .attr("y", lineHeight + 50)
+    .attr("text-anchor", "middle")
+    .style("font-size", "0.75em")
+    .style("fill", "black") 
+    .text(() => {
+      return "Growth of Covid-19 overtime: " + data[0].location;
+    });
+    
 
   line.exit();
 }

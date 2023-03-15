@@ -18,7 +18,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
     // Color palette for continents?
     const color = d3.scaleOrdinal()
-        .domain(["Asia", "Europe", "Africa", "Oceania", "North America", "South America"])
+        .domain(["North America", "South America", "Europe", "Africa", "Asia", "Oceania"])
         .range(d3.schemeSet1);
     // Size scale for countries
     const size = d3.scaleLinear()
@@ -29,9 +29,9 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     .attr("x", width/2)
     .attr("y", height-30)
     .attr("text-anchor", "middle")
-    .style("font-size", "1em")
+    .style("font-size", "0.75em")
     .style("fill", "black") 
-    .text("Total Covid-19 cases of the countries (sorted by continent) as of 2023-03-07");
+    .text("Total Covid-19 cases of countries (2023-03-07). Sorted by continent (North-America - Oceania)");
     
     
     // create a tooltip
@@ -121,5 +121,5 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
                 .attr("cy", d => d.y);
         });
 
-
+    lineGraph(data.filter(d => d.location === 'World'))
 });
