@@ -1,21 +1,22 @@
-// set the dimensions and margins of the graph
-const lineMargin = { top: 10, right: 30, bottom: 60, left: 100 };
+// Dimensions of graph
+const lineMargin = { top: 10, right: 30, bottom: 80, left: 100 };
 const lineWidth = 550 - lineMargin.left - lineMargin.right;
 const lineHeight = 400 - lineMargin.top - lineMargin.bottom;
 
 function lineGraph(data) {
   d3.select(".lineSVG").remove();
-
-  // append the svg object to the body of the page
-
+  
+  // append the svg object to the body of the page using line-viz ID.
   const lineSvg = d3
     .select("#line-viz")
     .append("svg")
     .attr("width", lineWidth + lineMargin.left + lineMargin.right)
     .attr("height", lineHeight + lineMargin.top + lineMargin.bottom)
     .attr("class", "lineSVG")
+    .attr("stroke", "#98C1D9")
     .append("g")
     .attr("transform", `translate(${lineMargin.left},${lineMargin.top})`);
+
   const timeStamps = data.map(d => d3.timeParse("%Y-%m-%d")(d.date));
   const domain = d3.extent(timeStamps);
 
@@ -43,7 +44,7 @@ function lineGraph(data) {
     .join("path")
     .attr("fill", "none")
     .attr("stroke", "steelblue")
-    .attr("stroke-width", 1.3)
+    .attr("stroke-width", 1)
     .attr("d", d => d3.line()
       .x(d => x(d3.timeParse("%Y-%m-%d")(d.date)))
       .y(d => y(+d.total_cases))
@@ -67,8 +68,6 @@ function lineGraph(data) {
     .style("fill", "black") 
     .text(() => {
       return "Growth of Covid-19 overtime: " + data[0].location;
-    });
-    
-
-  line.exit();
+    })
+    .exit();
 }

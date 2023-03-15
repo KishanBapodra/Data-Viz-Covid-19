@@ -22,7 +22,7 @@ const colorScale = d3.scaleThreshold()
   .range(d3.schemeReds[9]);
 // .domain([10000, 100000, 500000, 1000000, 5000000, 10000000, 20000000, 50000000])
 
-  let arr = [];
+let arr = [];
 // Load external data and boot
 Promise.all([
   d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),
@@ -34,8 +34,10 @@ Promise.all([
   })])
   .then(function(loadData) {
     let topo = loadData[0];
+
     // filter antartica out
     // topo.features = topo.features.filter(d => d.id !== )
+
     let mouseOver = function(event, d) {
         mapTooltip.style("opacity", 1);
         d3.selectAll(".Country")
@@ -53,7 +55,7 @@ Promise.all([
           .html('<u>' + d.properties.name + '</u>' + "<br>" + parseInt(d.total) + " cases per million")
           .style("position", "fixed")
           .style("left", (event.x + 15) + "px")
-          .style("top", (event.y + scrollY) + "px");
+          .style("top", (event.y - (scrollY/5)) + "px");
    };
 
     let mouseLeave = function(event, d) {
@@ -64,7 +66,14 @@ Promise.all([
           .style("opacity", 1);
     }
     
-      // create a tooltip
+    let mouseClick = function(event, d) {
+        if(d.id !== 'ATA' )
+          lineGraph(mainData.filter(datum => datum.iso_code === d.id))
+        else
+          lineGraph(mainData.filter(datum => datum.location === 'World'))
+    }
+
+    // create a tooltip
     const mapTooltip = d3.select("#map-viz")
       .append("div")
       .style("opacity", 0)
@@ -88,8 +97,6 @@ Promise.all([
       )
       // set the color of each country
       .attr("fill", function (d) {
-        // console.log(d.id)
-        // console.log(data.get('TTO'));
         d.total = data.get(d.id) || 0;
         return colorScale(d.total);
       })
@@ -98,6 +105,7 @@ Promise.all([
       .style("opacity", .8)
       .on("mouseover", mouseOver )
       .on("mousemove", mouseMove)
+      .on("click", mouseClick)
       .on("mouseleave", mouseLeave );
 
 });

@@ -1,5 +1,4 @@
 body {
-    height: 100vh;
     background-color: lightblue;
 }
 
@@ -9,25 +8,21 @@ body {
     justify-content: space-around;
     align-items: center;
     position: relative;
+    background-color: #293241;
 }
 
 .sub-section-right {
     height: 98vh;
-    border-left: 1px solid black;
-/*    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center; */
 }
 
 #bubble-viz {
     margin: 0;
     width: 100%;
+    border-bottom: 1px solid black;
 }
 
 .bubble-svg {
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     width: 100%;
     padding: 0 2em;
 }
@@ -45,21 +40,34 @@ body {
     height: 100%;
     /* padding: 1em; */
     position: relative;
+    border-right: 1px solid black;
 }
 
 .map-title {
-    color: black;
+    color: #98C1D9;
     margin: 0;
     bottom: 1em;
     font-size: 0.75em;
     text-align: center;
 }
 
-
-#line-viz {
-    height: 50%;
-}
+/* #line-viz {
+    border-left: 1px solid black;
+} */
 
 .lineSVG {
     padding: 1em 2em;
 }
+
+.section-2 {
+    height: 100vh;
+    padding: 2em;
+    background-color: #3D5A80;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .left-section {
+
+} */

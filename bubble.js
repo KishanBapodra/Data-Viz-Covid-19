@@ -1,7 +1,8 @@
 // set the dimensions and margins of the graph
 const width = 590;
 const height = 420;
-
+let mainData;
+let bubbleData;
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
   .append("svg")
@@ -14,12 +15,16 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
 
     // Filter the data on latest updated date.
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
+    mainData = data;
 
     const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
-    // Color palette for continents?
+
+
+    // Color palette for continents
     const color = d3.scaleOrdinal()
         .domain(["North America", "South America", "Europe", "Africa", "Asia", "Oceania"])
         .range(d3.schemeSet1);
+
     // Size scale for countries
     const size = d3.scaleLinear()
         .domain([0, 107000000])
@@ -30,9 +35,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     .attr("y", height-30)
     .attr("text-anchor", "middle")
     .style("font-size", "0.75em")
-    .style("fill", "black") 
+    .style("fill", "#98C1D9") 
     .text("Total Covid-19 cases of countries (2023-03-07). Sorted by continent (North-America - Oceania)");
-    
     
     // create a tooltip
     const bubbleTooltip = d3.select("#bubble-viz")
@@ -58,12 +62,13 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("opacity", 1)
         .style("stroke", "black")
     };
+    
     const mouseMove = (event, d) => {
         bubbleTooltip
             .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
             .style("position", "fixed")
             .style("left", (event.x + 15) + "px")
-            .style("top", (event.y + scrollY) + "px");
+            .style("top", (event.y - (scrollY/5)) + "px");
      };
 
     const mouseLeave = (event, d) => {
@@ -77,7 +82,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     const mouseclick = (event, d) => {
         lineGraph(data.filter(datum => d.location === datum.location))
     }
-    // console.log(d3.extent(bubbleData.total_cases_per_million));
+
     // Initialize the circle: all located at the center of the svg area
     const node = svg.append("g")
         .selectAll("circle")
@@ -91,18 +96,11 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .style("fill-opacity", 0.8)
         .attr("stroke", "black")
         .style("stroke-width", 3)
-        .on("mouseover", mouseOver) // What to do when hovered
+        .on("mouseover", mouseOver) 
         .on("mousemove", mouseMove)
         .on("mouseleave", mouseLeave)
-        .on("click", function(event, d) {
-            if(d3.select(this)._groups[0][0].classList.contains('circle-click'))
-                d3.select(this).classed("circle-click", false);
-            else 
-                d3.select(this)
-                .classed("circle-click", true); // add the class 'clicked' to the selected circle
-            mouseclick(event,d);
-        });
-
+        .on("click", mouseclick);
+        
     // Features of the forces applied to the nodes:
     const simulation = d3.forceSimulation()
     .force("x", d3.forceX().strength(0.1).x( function(d){ return continentCenters[d.continent] }))
@@ -121,5 +119,6 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
                 .attr("cy", d => d.y);
         });
 
-    lineGraph(data.filter(d => d.location === 'World'))
+    lineGraph(data.filter(d => d.location === 'World'));
+    bubbleChart(bubbleData);
 });
