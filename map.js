@@ -71,6 +71,17 @@ Promise.all([
           lineGraph(mainData.filter(datum => datum.iso_code === d.id))
         else
           lineGraph(mainData.filter(datum => datum.location === 'World'))
+        d3.select(`.${event.target.classList[1]}-gdp`)
+          .transition()
+          .delay(1000)
+          .duration(800)
+          .attr("stroke", "white")
+          .attr("stroke-width", 3)
+          .transition()
+          .delay(3000)
+          .duration(600)
+          .attr("stroke", "black")
+          .attr("stroke-width", );
     }
 
     // create a tooltip
