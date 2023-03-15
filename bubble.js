@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
-const width = 620;
-const height = 500;
+const width = 590;
+const height = 420;
 
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
@@ -23,7 +23,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Size scale for countries
     const size = d3.scaleLinear()
         .domain([0, 107000000])
-        .range([9, 45]); // circle will be between 16 and 70 px wide
+        .range([7, 50]); // circle will be between 16 and 70 px wide
     
     svg.append('text')
     .attr("x", width/2)

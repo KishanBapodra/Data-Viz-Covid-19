@@ -9,7 +9,7 @@ const mapSvg = d3.select("#map-viz")
             .attr("height",`${mapHeight}vh`);
 
 // Map and projection
-const path = d3.geoPath();
+const mapPath = d3.geoPath();
 const projection = d3.geoMercator()
   .scale(100)
   .center([0,20])
@@ -34,7 +34,8 @@ Promise.all([
   })])
   .then(function(loadData) {
     let topo = loadData[0];
-
+    // filter antartica out
+    // topo.features = topo.features.filter(d => d.id !== )
     let mouseOver = function(event, d) {
         mapTooltip.style("opacity", 1);
         d3.selectAll(".Country")
