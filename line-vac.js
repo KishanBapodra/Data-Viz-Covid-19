@@ -1,5 +1,5 @@
 // set the dimensions and Margins of the graph
-const lineVacMargin = {top: 10, right: 30, bottom: 30, left: 60};
+const lineVacMargin = {top: 25, right: 30, bottom: 30, left: 60};
 const lineVacWidth = 600 - lineVacMargin.left - lineVacMargin.right;
 const lineVacHeight = 400 - lineVacMargin.top - lineVacMargin.bottom;
 
@@ -16,9 +16,9 @@ function lineVaccine(data) {
               "translate(" + lineVacMargin.left + "," + lineVacMargin.top + ")");
     
               
-    data = data.filter(d => d3.timeParse("%Y-%m-%d")(d.date) > d3.timeParse("%Y-%m-%d")("2021-01-01") && d3.timeParse("%Y-%m-%d")(d.date) < d3.timeParse("%Y-%m-%d")("2023-03-06"));
     const timeStamps = data.map(d => d3.timeParse("%Y-%m-%d")(d.date));
     const domain = d3.extent(timeStamps);
+    filteredData = data.filter(d => d3.timeParse("%Y-%m-%d")(d.date) > d3.timeParse("%Y-%m-%d")("2021-01-01") && d3.timeParse("%Y-%m-%d")(d.date) < d3.timeParse("%Y-%m-%d")("2023-03-06"));
               
     // filter the latest data out as it has bugs
 
@@ -37,7 +37,13 @@ function lineVaccine(data) {
         .range([ lineVacHeight, 0]);
   
     lineVacSVG.append("g")
-        .call(d3.axisLeft(y1));
+        .call(d3.axisLeft(y1))
+        .call(g => g.append("text")
+        .attr("x", -lineVacMargin.left)
+        .attr("y", -15)
+        .attr("fill", "black")
+        .attr("text-anchor", "start")
+        .text("↑ Total Covid-19 Deaths"));
 
     // Add second Y axis
     const y2 = d3.scaleLinear()
@@ -46,7 +52,13 @@ function lineVaccine(data) {
     
     lineVacSVG.append("g")
         .attr("transform", `translate(${lineVacWidth},0)`)
-        .call(d3.axisRight(y2));
+        .call(d3.axisRight(y2))
+        .call(g => g.append("text")
+        .attr("x", lineVacMargin.right)
+        .attr("y", -15)
+        .attr("fill", "black")
+        .attr("text-anchor", "end")
+        .text("↑ Vaccination Rate (vaccinated/population)"));;
 
     // Add the line
     lineVacSVG.append("path")
@@ -60,7 +72,7 @@ function lineVaccine(data) {
         )
 
     lineVacSVG.append("path")
-        .datum(data)
+        .datum(filteredData)
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", 1.5)
