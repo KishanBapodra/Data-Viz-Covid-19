@@ -79,7 +79,7 @@ function lineGraph(data) {
 
   lineSvg.append('text')
     .attr("x", lineWidth/2)
-    .attr("y", lineHeight + 60)
+    .attr("y", lineHeight + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "0.75em")
     .style("fill", "black") 
