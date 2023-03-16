@@ -36,7 +36,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     .attr("x", bubbleWidth/2)
     .attr("y", bubbleHeight-30)
     .attr("text-anchor", "middle")
-    .style("font-size", "0.75em")
+    .style("font-size", "0.95em")
     .style("fill", "#98C1D9") 
     .text("Total Covid-19 cases of countries (2023-03-07). Sorted by continent (North-America - Oceania)");
     

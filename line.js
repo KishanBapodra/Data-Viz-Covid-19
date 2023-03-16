@@ -79,9 +79,10 @@ function lineGraph(data) {
 
   lineSvg.append('text')
     .attr("x", lineWidth/2)
-    .attr("y", lineHeight + 40)
+    .attr("y", lineHeight + 45)
     .attr("text-anchor", "middle")
-    .style("font-size", "0.75em")
+    .attr("stroke", 1)
+    .style("font-size", "0.95em")
     .style("fill", "black") 
     .text(() => {
       return "Growth of Covid-19 overtime: " + data[0].location;

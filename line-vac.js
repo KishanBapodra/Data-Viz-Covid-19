@@ -85,7 +85,7 @@ function lineVaccine(data) {
         .attr("x", lineVacWidth/2)
         .attr("y", lineVacHeight + 40)
         .attr("text-anchor", "middle")
-        .style("font-size", "0.75em")
+        .style("font-size", "0.95em")
         .style("fill", "black") 
         .text("Vaccination Rate: Red , Total Deaths: Steelblue");
 }
