@@ -73,6 +73,10 @@ body {
     align-items: center;
 }
 
+.title {
+    font-size: 1.5em;
+}
+
 .right-section {
     width: 43%;
     border-left: 1px solid black;
