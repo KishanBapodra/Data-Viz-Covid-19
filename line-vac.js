@@ -1,5 +1,5 @@
 // set the dimensions and Margins of the graph
-const lineVacMargin = {top: 25, right: 30, bottom: 30, left: 60};
+const lineVacMargin = {top: 25, right: 30, bottom: 50, left: 60};
 const lineVacWidth = 600 - lineVacMargin.left - lineVacMargin.right;
 const lineVacHeight = 400 - lineVacMargin.top - lineVacMargin.bottom;
 
@@ -58,7 +58,7 @@ function lineVaccine(data) {
         .attr("y", -15)
         .attr("fill", "black")
         .attr("text-anchor", "end")
-        .text("↑ Vaccination Rate (vaccinated/population)"));;
+        .text("↑ Vaccination Rate (vaccinated/population)"));
 
     // Add the line
     lineVacSVG.append("path")
@@ -80,5 +80,12 @@ function lineVaccine(data) {
         .x(function(d) { return x(d3.timeParse("%Y-%m-%d")(d.date)) })
         .y(function(d) { return y2(d.people_fully_vaccinated/d.population) })
         )
-
+    
+    lineVacSVG.append('text')
+        .attr("x", lineVacWidth/2)
+        .attr("y", lineVacHeight + 40)
+        .attr("text-anchor", "middle")
+        .style("font-size", "0.75em")
+        .style("fill", "black") 
+        .text("Vaccination Rate: Red , Total Deaths: Steelblue");
 }

@@ -74,8 +74,14 @@ body {
 }
 
 .right-section {
-    width: 50%;
+    width: 43%;
+    border-left: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.vaccination-rate {
+    margin: 3em;
 }
