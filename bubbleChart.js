@@ -1,7 +1,8 @@
 
 const bubbleChart = (data) => {
 
-  data = data.filter(d => d.gdp_per_capita > 5000);
+  // remove country's with no gdp or very low gdp to avoid clutter 
+  data = data.filter(d => d.gdp_per_capita > 1000);
   // set the dimensions and margins of the graph
   const bubbleChartMargin = {top: 40, right: 20, bottom: 38, left: 80};
   const bubbleChartWidth = 750 - bubbleChartMargin.left - bubbleChartMargin.right;

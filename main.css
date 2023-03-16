@@ -31,7 +31,7 @@ body {
     stroke: white;
 }
 
-.map-together {
+.map {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -88,4 +88,18 @@ body {
 
 .vaccination-rate {
     margin: 3em;
+}
+
+.section-3 {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-title {
+    margin: 2em 0 0 0 ;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
 }

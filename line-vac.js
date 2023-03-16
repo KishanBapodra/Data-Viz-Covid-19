@@ -18,6 +18,7 @@ function lineVaccine(data) {
               
     const timeStamps = data.map(d => d3.timeParse("%Y-%m-%d")(d.date));
     const domain = d3.extent(timeStamps);
+    
     filteredData = data.filter(d => d3.timeParse("%Y-%m-%d")(d.date) > d3.timeParse("%Y-%m-%d")("2021-01-01") && d3.timeParse("%Y-%m-%d")(d.date) < d3.timeParse("%Y-%m-%d")("2023-03-06"));
               
     // filter the latest data out as it has bugs

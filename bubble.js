@@ -6,20 +6,22 @@ const bubbleHeight = 420;
 let mainData;
 let bubbleData;
 
-// append the svg object to the body of the page
+// append the svg object to the bubble-viz id of the page
 const svg = d3.select("#bubble-viz")
   .append("svg")
   .attr("class", "bubble-svg")
   .attr("width", bubbleWidth)
   .attr("height", bubbleHeight);
 
-// Read data
+// Read data from repo
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
-    // Filter the data on latest updated date.
+    // Filter the data on latest updated date without blanks.
     bubbleData = data.filter(d => d.date === "2023-03-07" && d.continent !== '' && d.location !== '');
     mainData = data;
+    continentData = data.filter(d => d.date === "2023-03-07" && ['OWID_AFR','OWID_ASI','OWID_EUR','OWID_NAM','OWID_OCE','OWID_SAM'].includes(d.iso_code));
 
+    // Centers of different continent to sort them accordingly making it easier to find countries
     const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
 
     // Color palette for continents
@@ -36,7 +38,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     .attr("x", bubbleWidth/2)
     .attr("y", bubbleHeight-30)
     .attr("text-anchor", "middle")
-    .style("font-size", "0.95em")
+    .style("font-size", "0.96em")
     .style("fill", "#98C1D9") 
     .text("Total Covid-19 cases of countries (2023-03-07). Sorted by continent (North-America - Oceania)");
     
@@ -67,7 +69,7 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     
     const mouseMove = (event, d) => {
         bubbleTooltip
-            .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " cases")
+            .html('<u>' + d.location + '</u>' + "<br>" + parseInt(d.total_cases) + " Total cases")
             .style("position", "fixed")
             .style("left", (event.x + 15) + "px")
             .style("top", (event.y - (scrollY/5)) + "px");
@@ -124,4 +126,5 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     lineGraph(data.filter(d => d.location === 'World'));
     bubbleChart(bubbleData);
     lineVaccine(data.filter(d => d.location === 'World'));
+    pieChart(continentData);
 });

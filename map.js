@@ -35,7 +35,7 @@ Promise.all([
   .then(function(loadData) {
     let topo = loadData[0];
 
-    // filter antartica out
+    // filter antartica out of map
     // topo.features = topo.features.filter(d => d.id !== )
 
     let mouseOver = function(event, d) {
@@ -83,7 +83,7 @@ Promise.all([
           .attr("stroke", "black")
           .attr("stroke-width", );
     }
-
+    
     // create a tooltip
     const mapTooltip = d3.select("#map-viz")
       .append("div")
