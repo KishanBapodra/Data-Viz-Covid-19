@@ -1,16 +1,19 @@
 // set the dimensions and margins of the graph
-const width = 590;
-const height = 420;
+const bubbleWidth = 590;
+const bubbleHeight = 420;
+
+// store data globally to be used by other graphs
 let mainData;
 let bubbleData;
+
 // append the svg object to the body of the page
 const svg = d3.select("#bubble-viz")
   .append("svg")
   .attr("class", "bubble-svg")
-  .attr("width", width)
-  .attr("height", height);
+  .attr("width", bubbleWidth)
+  .attr("height", bubbleHeight);
 
-    // Read data
+// Read data
 d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv").then(data => {
 
     // Filter the data on latest updated date.
@@ -18,7 +21,6 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     mainData = data;
 
     const continentCenters = {"North America": 10, "South America": 50, "Europe": 120, "Africa": 170, "Asia": 240, "Oceania": 290}
-
 
     // Color palette for continents
     const color = d3.scaleOrdinal()
@@ -31,8 +33,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .range([7, 50]); // circle will be between 16 and 70 px wide
     
     svg.append('text')
-    .attr("x", width/2)
-    .attr("y", height-30)
+    .attr("x", bubbleWidth/2)
+    .attr("y", bubbleHeight-30)
     .attr("text-anchor", "middle")
     .style("font-size", "0.75em")
     .style("fill", "#98C1D9") 
@@ -90,8 +92,8 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
         .join("circle")
         .attr("class", d => `node Country ${d.iso_code}`)
         .attr("r", d => size(d.total_cases))
-        .attr("cx", width/2)
-        .attr("cy", height/2)
+        .attr("cx", bubbleWidth/2)
+        .attr("cy", bubbleHeight/2)
         .style("fill", d => color(d.continent))
         .style("fill-opacity", 0.8)
         .attr("stroke", "black")
@@ -104,12 +106,11 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
     // Features of the forces applied to the nodes:
     const simulation = d3.forceSimulation()
     .force("x", d3.forceX().strength(0.1).x( function(d){ return continentCenters[d.continent] }))
-    .force("y", d3.forceY().strength(0.1).y( height/2 ))
-        .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+    .force("y", d3.forceY().strength(0.1).y( bubbleHeight/2 ))
+        .force("center", d3.forceCenter().x(bubbleWidth/2).y(bubbleHeight/2)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(.1)) 
         .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.total_cases)+3) }).iterations(1)) // Force that avoids circle overlapping
 
-    // Apply these forces to the nodes and update their positions.
     // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
     simulation
         .nodes(bubbleData)
@@ -118,7 +119,9 @@ d3.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
         });
-
+    
+    // call line chart and bubble chart using the data from csv
     lineGraph(data.filter(d => d.location === 'World'));
     bubbleChart(bubbleData);
+    lineVaccine(data.filter(d => d.location === 'World'));
 });

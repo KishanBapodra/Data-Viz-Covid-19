@@ -27,7 +27,6 @@ const bubbleChart = (data) => {
       .style("padding", "0.3em");
 
   const mouseOver = (event, d) => {
-    console.log(event);
     bubbleChartTooltip.style("opacity", 1);
   }
 

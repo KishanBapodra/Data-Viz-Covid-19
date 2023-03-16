@@ -1,6 +1,6 @@
 // Dimensions of graph
-const lineMargin = { top: 35, right: 30, bottom: 80, left: 100 };
-const lineWidth = 550 - lineMargin.left - lineMargin.right;
+const lineMargin = { top: 35, right: 30, bottom: 80, left: 80 };
+const lineWidth = 620 - lineMargin.left - lineMargin.right;
 const lineHeight = 400 - lineMargin.top - lineMargin.bottom;
 
 function lineGraph(data) {
@@ -16,7 +16,8 @@ function lineGraph(data) {
     .attr("stroke", "#98C1D9")
     .append("g")
     .attr("transform", `translate(${lineMargin.left},${lineMargin.top})`);
-
+  
+    
   const timeStamps = data.map(d => d3.timeParse("%Y-%m-%d")(d.date));
   const domain = d3.extent(timeStamps);
 
@@ -36,13 +37,13 @@ function lineGraph(data) {
   lineSvg
     .append("g")
     .attr("transform", `translate(0, ${lineHeight})`)
-    .call(d3.axisBottom(x).ticks(5))
+    .call(d3.axisBottom(x))
     .call(g => g.append("text")
         .attr("x", lineWidth)
         .attr("y", lineMargin.bottom - 50)
         .attr("fill", "#98C1D9")
         .attr("text-anchor", "end")
-        .text("Income per capita (dollars) →"));
+        .text("Timeline →"));
 
   // y-axis
   lineSvg.append("g")
@@ -61,11 +62,11 @@ function lineGraph(data) {
     .join("path")
     .attr("fill", "none")
     .attr("stroke", "steelblue")
-    .attr("d", d => d3.line()
+    .attr("d", d => { return d3.line()
       .x(d => x(d3.timeParse("%Y-%m-%d")(d.date)))
       .y(d => y(+d.total_cases))
       (d[1])
-    )
+    })
     .transition() // animate line
     .duration(1500) // animation duration
     .ease(d3.easeSin) 

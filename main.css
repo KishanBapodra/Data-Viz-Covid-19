@@ -34,6 +34,12 @@ body {
 .map-together {
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+.map-title {
+    font-size: 1.5em;
+    color: #98C1D9;
 }
 
 #map-viz {
@@ -43,9 +49,8 @@ body {
     border-right: 1px solid black;
 }
 
-.map-title {
+.map-bottom {
     color: #98C1D9;
-    margin: 0;
     bottom: 1em;
     font-size: 0.75em;
     text-align: center;
@@ -55,7 +60,7 @@ body {
     border-left: 1px solid black;
 } */
 
-.lineSVG {
+.line-svg {
     padding: 1em 2em;
 }
 
@@ -64,10 +69,13 @@ body {
     padding: 2em;
     background-color: #3D5A80;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-/* .left-section {
-
-} */
+.right-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
